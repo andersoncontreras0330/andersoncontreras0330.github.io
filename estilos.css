@@ -1,84 +1,216 @@
-/* Estilos de las páginas públicas (scripts/generar-paginas.mjs). Los colores
-   son los de la app: azul marino de la marca y el azul de los botones. */
+/* Estilos de las páginas públicas (scripts/generar-paginas.mjs): prestalink.app,
+   ayuda.prestalink.app y la del APK.
+
+   Diseño del 2026-11-20 (pedido del usuario: elegante, moderno, como se usa hoy, a
+   partir de una imagen de referencia): oscuro, con una aurora azul y violeta de
+   fondo, la barra de arriba de vidrio, la portada grande con el logo de siempre y su
+   halo, los enlaces en tarjetas de vidrio y el pie con las dos insignias del mismo
+   tamaño. Los azules son los de la app. */
 :root {
-  --marino: #0A1C42;
+  --fondo: #060B1A;
+  --texto: #EEF2FB;
+  --cuerpo: #C9D3E6;
+  --suave: #9AA8C4;
+  --tenue: #6F7E9C;
+  --acento: #8AB4FF;
+  --violeta: #A78BFA;
   --azul: #1E6FFF;
-  --texto: #14213D;
-  --suave: #5B6B85;
-  --fondo: #F5F8FD;
-  --borde: #E3EAF5;
-  color-scheme: light dark;
-}
-@media (prefers-color-scheme: dark) {
-  :root { --texto: #E8EEF9; --suave: #9AA9C2; --fondo: #0B1428; --borde: #1E2B47; }
+  --vidrio: rgba(255, 255, 255, 0.045);
+  --vidrio-fuerte: rgba(255, 255, 255, 0.08);
+  --linea: rgba(255, 255, 255, 0.10);
+  --linea-fuerte: rgba(255, 255, 255, 0.18);
+  color-scheme: dark;
 }
 * { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
 body {
-  margin: 0; background: var(--fondo); color: var(--texto);
-  font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+  margin: 0; min-height: 100vh; position: relative; isolation: isolate; overflow-x: hidden;
+  background: var(--fondo); color: var(--texto);
+  font: 16px/1.65 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
 }
-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 14px max(20px, calc((100% - 760px) / 2)); background: var(--marino);
+/* La aurora: luces suaves arriba, y unas pocas más chicas y nítidas, como en la referencia. */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+  background:
+    radial-gradient(70px 70px at 33% 17%, rgba(96, 165, 250, 0.55), transparent 70%),
+    radial-gradient(46px 46px at 66% 30%, rgba(129, 140, 248, 0.6), transparent 70%),
+    radial-gradient(110px 110px at 74% 12%, rgba(56, 189, 248, 0.22), transparent 70%),
+    radial-gradient(38% 34% at 24% 22%, rgba(30, 111, 255, 0.30), transparent 72%),
+    radial-gradient(34% 30% at 78% 18%, rgba(139, 92, 246, 0.26), transparent 72%),
+    radial-gradient(60% 45% at 50% 0%, rgba(30, 111, 255, 0.16), transparent 75%);
 }
-.marca { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font-weight: 700; font-size: 19px; }
-.marca img { width: 34px; height: 34px; }
-.idioma { color: #C9D6EE; text-decoration: none; font-size: 14px; }
-main { max-width: 760px; margin: 0 auto; padding: 28px 20px 12px; }
-h1 { font-size: 28px; line-height: 1.25; margin: 6px 0 12px; }
-h2 { font-size: 18px; margin: 28px 0 8px; }
-p, li { color: var(--texto); }
-.resumen { font-size: 17px; color: var(--suave); }
-.nota { font-size: 14px; color: var(--suave); border-left: 3px solid var(--azul); padding-left: 12px; }
-.version { font-size: 13px; color: var(--suave); margin-top: 32px; }
-a { color: var(--azul); }
-section { border-top: 1px solid var(--borde); }
-.portada { text-align: center; padding: 18px 0 8px; }
-.portada img { width: 96px; height: 96px; }
-.portada h1 { font-size: 34px; margin: 10px 0 2px; }
-.lema { color: var(--azul); font-weight: 600; margin-top: 0; }
-.lista { list-style: none; padding: 0; margin: 22px 0; display: grid; gap: 10px; }
-.lista a {
-  display: block; padding: 14px 16px; border: 1px solid var(--borde); border-radius: 12px;
-  text-decoration: none; font-weight: 600; background: rgba(30, 111, 255, 0.04);
+/* Una trama de puntos que se desvanece hacia abajo. */
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse 75% 55% at 50% 0%, #000 25%, transparent 75%);
+  mask-image: radial-gradient(ellipse 75% 55% at 50% 0%, #000 25%, transparent 75%);
 }
-.boton {
-  display: inline-block; margin-top: 8px; padding: 14px 22px; border-radius: 12px;
-  background: var(--azul); color: #fff; font-weight: 700; text-decoration: none;
+a { color: var(--acento); text-underline-offset: 3px; }
+a:hover { color: #B5CEFF; }
+:focus-visible { outline: 2px solid var(--acento); outline-offset: 3px; border-radius: 6px; }
+
+/* ---- La barra de arriba: vidrio, fija ---------------------------------------- */
+header { position: sticky; top: 0; z-index: 10; padding: 12px 16px 0; }
+.barra {
+  max-width: 1040px; margin: 0 auto; padding: 9px 10px 9px 12px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  border: 1px solid var(--linea); border-radius: 18px;
+  background: rgba(10, 17, 36, 0.62);
+  -webkit-backdrop-filter: saturate(160%) blur(18px); backdrop-filter: saturate(160%) blur(18px);
+  box-shadow: 0 12px 32px -14px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
+.marca { display: flex; align-items: center; gap: 10px; color: var(--texto); text-decoration: none; font-weight: 700; font-size: 19px; letter-spacing: -0.01em; }
+.marca:hover { color: var(--texto); }
+.marca img { width: 32px; height: 32px; border-radius: 8px; }
+.marca b { color: var(--acento); font-weight: 700; }
+.idioma {
+  display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px 7px 11px;
+  border: 1px solid var(--linea-fuerte); border-radius: 999px; background: var(--vidrio-fuerte);
+  color: var(--texto); text-decoration: none; font-size: 14px; font-weight: 500;
+  transition: background 0.2s, border-color 0.2s;
+}
+.idioma:hover { color: var(--texto); background: rgba(255, 255, 255, 0.13); border-color: rgba(255, 255, 255, 0.28); }
+.idioma svg { width: 16px; height: 16px; opacity: 0.85; }
+
+/* ---- El contenido ------------------------------------------------------------ */
+main { max-width: 760px; margin: 0 auto; padding: 40px 20px 16px; }
+h1 { font-size: clamp(28px, 5vw, 40px); line-height: 1.15; font-weight: 800; letter-spacing: -0.025em; margin: 8px 0 14px; }
+h2 { font-size: 19px; line-height: 1.35; font-weight: 700; letter-spacing: -0.01em; margin: 30px 0 8px; color: var(--texto); }
+p, li { color: var(--cuerpo); }
+.resumen { font-size: 18px; color: var(--suave); }
+.nota {
+  font-size: 14.5px; color: var(--suave); padding: 12px 16px; border: 1px solid var(--linea);
+  border-left: 3px solid var(--acento); border-radius: 10px; background: var(--vidrio);
+}
+.version { font-size: 13px; color: var(--tenue); margin-top: 36px; }
 .detalle { font-size: 14px; color: var(--suave); margin-top: 0; }
-code { font-size: 13px; word-break: break-all; }
-footer { max-width: 760px; margin: 24px auto 0; padding: 20px 20px 36px; border-top: 1px solid var(--borde); font-size: 13px; color: var(--suave); }
-footer nav { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-bottom: 10px; }
-footer p { color: var(--suave); margin: 6px 0; }
-/* prestalink.app: la página del código. */
+section { border-top: 1px solid var(--linea); margin-top: 26px; }
+ol { padding-left: 22px; }
+ol li { margin: 6px 0; }
+code {
+  font: 12.5px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; word-break: break-all;
+  padding: 2px 6px; border-radius: 6px; background: var(--vidrio-fuerte); color: var(--texto);
+}
+
+/* ---- La portada: el logo con su halo, el nombre grande y el lema ----------------- */
+.portada { text-align: center; padding: 22px 0 6px; }
+.icono { position: relative; display: inline-block; isolation: isolate; line-height: 0; }
+.icono::before {
+  content: ""; position: absolute; inset: -38%; z-index: -1; border-radius: 50%;
+  background: radial-gradient(circle, rgba(30, 111, 255, 0.55), rgba(139, 92, 246, 0.18) 45%, transparent 70%);
+  filter: blur(18px);
+}
+.icono img {
+  width: 112px; height: 112px; border-radius: 26px;
+  box-shadow: 0 22px 50px -14px rgba(30, 111, 255, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.10);
+}
+.portada h1 {
+  font-size: clamp(38px, 8vw, 72px); line-height: 1.04; font-weight: 800; letter-spacing: -0.035em;
+  margin: 28px 0 12px; color: var(--texto);
+  background: linear-gradient(180deg, #FFFFFF 35%, #B8C8EC); -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.lema {
+  font-size: clamp(21px, 3.8vw, 31px); line-height: 1.25; font-weight: 600; letter-spacing: -0.02em; margin: 0 0 20px;
+  color: var(--acento);
+  background: linear-gradient(90deg, #8AB4FF, #A78BFA 85%); -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.portada p:not(.lema) { max-width: 640px; margin: 0 auto 12px; font-size: 17px; line-height: 1.7; color: var(--suave); }
+
+/* ---- Los enlaces de la portada: tarjetas de vidrio, de dos en dos ----------------- */
+.lista { list-style: none; padding: 0; margin: 38px auto 8px; max-width: 700px; display: grid; gap: 12px; }
+@media (min-width: 640px) { .lista { grid-template-columns: 1fr 1fr; } }
+.lista a {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 18px 18px 18px 20px; border: 1px solid var(--linea); border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.025));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  color: var(--acento); font-weight: 600; font-size: 16.5px; text-decoration: none;
+  transition: transform 0.2s, border-color 0.2s, background 0.2s;
+}
+.lista a::after {
+  content: ""; flex: none; width: 18px; height: 18px; background: currentColor; opacity: 0.8;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 18 6-6-6-6'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 18 6-6-6-6'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: transform 0.2s;
+}
+.lista a:hover {
+  color: #B5CEFF; transform: translateY(-2px); border-color: rgba(138, 180, 255, 0.4);
+  background: linear-gradient(180deg, rgba(138, 180, 255, 0.12), rgba(255, 255, 255, 0.03));
+}
+.lista a:hover::after { transform: translateX(3px); }
+
+/* ---- Botones ------------------------------------------------------------------ */
+.boton {
+  display: inline-block; margin-top: 8px; padding: 14px 24px; border-radius: 12px;
+  background: linear-gradient(180deg, #3B82F6, #1E6FFF); color: #fff; font-weight: 700; text-decoration: none;
+  box-shadow: 0 12px 28px -10px rgba(30, 111, 255, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transition: transform 0.2s, filter 0.2s;
+}
+.boton:hover { color: #fff; transform: translateY(-1px); filter: brightness(1.08); }
 .boton.ancho { display: block; margin: 0; text-align: center; }
 .boton small { display: block; font-weight: 500; font-size: 13px; opacity: 0.85; }
+
+/* prestalink.app: la página del código. */
 .codigo-caja {
   display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2px 12px;
-  margin: 18px 0; padding: 16px; border: 1px solid var(--borde); border-radius: 12px;
-  background: rgba(30, 111, 255, 0.06);
+  margin: 18px 0; padding: 18px 18px 18px 20px; border: 1px solid var(--linea); border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 .codigo-caja span { grid-column: 1 / -1; font-size: 13px; color: var(--suave); }
-.codigo-caja strong { font-size: 28px; letter-spacing: 3px; word-break: break-all; }
+.codigo-caja strong { font-size: 30px; letter-spacing: 4px; word-break: break-all; }
 .codigo-caja button {
-  font: inherit; font-weight: 600; font-size: 14px; color: var(--azul); cursor: pointer;
-  padding: 8px 14px; border: 1.5px solid var(--azul); border-radius: 999px; background: transparent;
+  font: inherit; font-weight: 600; font-size: 14px; color: var(--acento); cursor: pointer;
+  padding: 8px 16px; border: 1px solid rgba(138, 180, 255, 0.5); border-radius: 999px; background: rgba(138, 180, 255, 0.08);
 }
+.codigo-caja button:hover { background: rgba(138, 180, 255, 0.16); }
 .oculto { display: none; }
-/* Las dos insignias de descarga (ayuda.prestalink.app y prestalink.app), de la misma
-   altura. La del App Store es la oficial de Apple, sin cambios. La del APK es propia,
-   al estilo de la de Google Play: negra, con el borde gris, el robot verde y dos líneas. */
-.insignias { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px; margin: 22px 0 10px; }
-.insignia-app-store { display: block; line-height: 0; border-radius: 8px; }
-.insignia-app-store img { display: block; height: 48px; width: auto; }
+
+/* ---- Las dos insignias de descarga --------------------------------------------- *
+ * Del mismo tamaño (pedido del usuario, 2026-11-20): la del App Store es la oficial de
+ * Apple, sin cambios (lo piden sus reglas de marca), y la del APK toma sus mismas
+ * proporciones (119.66 × 40) y su misma altura. La del APK es propia, al estilo de la
+ * de Google Play: negra, con el borde gris, el robot verde y dos renglones. */
+.insignias { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; margin: 22px 0 10px; }
+.insignia-app-store, .insignia-apk { transition: transform 0.2s, filter 0.2s; }
+.insignia-app-store:hover, .insignia-apk:hover { transform: translateY(-1px); filter: brightness(1.12); }
+.insignia-app-store { display: block; line-height: 0; border-radius: 9px; }
+.insignia-app-store img { display: block; height: 44px; width: auto; }
 .insignia-apk {
-  display: inline-flex; align-items: center; gap: 10px; box-sizing: border-box; height: 48px; padding: 0 18px 0 13px;
-  border: 1px solid #A6A6A6; border-radius: 8px; background: #000; color: #fff; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 6px; height: 44px; aspect-ratio: 119.66407 / 40; padding: 0 6px 0 9px;
+  border: 1px solid #A6A6A6; border-radius: 9px; background: #000; color: #fff; text-decoration: none;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  white-space: nowrap;
 }
-.insignia-apk:hover { background: #1C1C1E; }
-.insignia-apk svg { width: 27px; height: 27px; flex: none; fill: #3DDC84; }
+.insignia-apk:hover { color: #fff; }
+.insignia-apk svg { width: 22px; height: 22px; flex: none; fill: #3DDC84; }
 .insignia-apk span { display: flex; flex-direction: column; justify-content: center; text-align: left; }
-.insignia-apk small { font-size: 9.5px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; line-height: 1.2; opacity: 0.92; }
-.insignia-apk strong { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.1; }
+.insignia-apk small { font-size: 8px; font-weight: 500; letter-spacing: 0.03em; text-transform: uppercase; line-height: 1.2; opacity: 0.92; }
+.insignia-apk strong { font-size: 18px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.1; }
+
+/* ---- El pie: los enlaces a la izquierda, las descargas a la derecha, y abajo lo legal - */
+footer { max-width: 1120px; margin: 64px auto 0; padding: 22px 24px 40px; border-top: 1px solid var(--linea); font-size: 13.5px; color: var(--suave); }
+.pie-fila { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 32px; }
+footer nav { display: flex; flex-wrap: wrap; align-items: center; row-gap: 6px; }
+footer nav a { color: var(--acento); text-decoration: none; font-size: 14px; }
+footer nav a:hover { color: #B5CEFF; text-decoration: underline; }
+footer nav a + a::before { content: "•"; display: inline-block; margin: 0 10px; color: var(--tenue); text-decoration: none; }
+.pie-app { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+footer .pie-titulo { margin: 0; font-size: 14px; font-weight: 500; color: var(--texto); }
+footer .insignias { justify-content: flex-start; margin: 0; }
+.pie-legal { margin-top: 22px; }
+.pie-legal p { margin: 4px 0; font-size: 12.5px; color: var(--tenue); }
+.pie-legal a { color: var(--suave); }
+
+@media (max-width: 640px) {
+  main { padding-top: 28px; }
+  .pie-fila { flex-direction: column; align-items: flex-start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
