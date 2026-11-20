@@ -95,6 +95,38 @@ code {
   padding: 2px 6px; border-radius: 6px; background: var(--vidrio-fuerte); color: var(--texto);
 }
 
+/* ---- Las páginas de texto: la cabecera centrada y la hoja (2026-11-20) ------------ */
+.cabeza-pagina { text-align: center; max-width: 680px; margin: 10px auto 34px; }
+.cabeza-pagina h1 {
+  font-size: clamp(32px, 6vw, 52px); line-height: 1.08; letter-spacing: -0.03em; margin: 0 0 14px;
+  background: linear-gradient(180deg, #FFFFFF 40%, #B8C8EC); -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.cabeza-pagina .resumen { max-width: 620px; margin: 0 auto; font-size: clamp(16.5px, 2.3vw, 19px); line-height: 1.6; text-wrap: balance; }
+.cabeza-pagina .boton { margin-top: 22px; }
+.cabeza-pagina .detalle { margin: 12px 0 0; }
+.hoja {
+  max-width: 760px; margin: 0 auto; padding: clamp(24px, 5vw, 48px);
+  border: 1px solid var(--linea); border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02));
+  box-shadow: 0 30px 70px -36px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+.hoja > :first-child { margin-top: 0; }
+.hoja > :last-child { margin-bottom: 0; }
+.hoja p, .hoja li { line-height: 1.75; text-wrap: pretty; }
+.hoja p { margin: 0 0 14px; }
+.hoja section { margin-top: 30px; padding-top: 4px; }
+.hoja > section:first-child { border-top: 0; margin-top: 0; padding-top: 0; }
+.hoja h2 { margin: 26px 0 12px; }
+.hoja > section:first-child h2 { margin-top: 0; }
+.hoja ul, .hoja ol { margin: 0 0 14px; padding-left: 22px; }
+.hoja li { margin: 6px 0; padding-left: 4px; }
+.hoja li::marker { color: var(--acento); }
+.hoja .nota { margin: 0 0 28px; }
+.hoja .version { margin: 34px 0 0; padding-top: 18px; border-top: 1px solid var(--linea); text-align: center; }
+.hoja.corta { max-width: 620px; text-align: center; }
+.hoja.corta p { margin: 0; font-size: 17px; text-wrap: balance; }
+
 /* ---- La portada: el logo con su halo, el nombre grande y el lema ----------------- */
 .portada { text-align: center; padding: 22px 0 6px; }
 .icono { position: relative; display: inline-block; isolation: isolate; line-height: 0; }
@@ -194,7 +226,8 @@ code {
 .insignia-apk strong { font-size: 18px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.1; }
 
 /* ---- El pie: los enlaces a la izquierda, las descargas a la derecha, y abajo lo legal - */
-footer { max-width: 1120px; margin: 64px auto 0; padding: 22px 24px 40px; border-top: 1px solid var(--linea); font-size: 13.5px; color: var(--suave); }
+/* Con el mismo ancho que la barra de arriba, para que los bordes coincidan. */
+footer { max-width: 1072px; margin: 72px auto 0; padding: 24px 30px 44px; border-top: 1px solid var(--linea); font-size: 13.5px; color: var(--suave); }
 .pie-fila { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 32px; }
 footer nav { display: flex; flex-wrap: wrap; align-items: center; row-gap: 6px; }
 footer nav a { color: var(--acento); text-decoration: none; font-size: 14px; }
@@ -203,13 +236,23 @@ footer nav a + a::before { content: "•"; display: inline-block; margin: 0 10px
 .pie-app { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
 footer .pie-titulo { margin: 0; font-size: 14px; font-weight: 500; color: var(--texto); }
 footer .insignias { justify-content: flex-start; margin: 0; }
-.pie-legal { margin-top: 22px; }
-.pie-legal p { margin: 4px 0; font-size: 12.5px; color: var(--tenue); }
+/* Lo legal, abajo y centrado, separado por una línea suave. */
+.pie-legal { margin-top: 24px; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, 0.06); text-align: center; }
+.pie-legal p { margin: 4px auto; max-width: 860px; text-wrap: balance; font-size: 12.5px; line-height: 1.6; color: var(--tenue); }
 .pie-legal a { color: var(--suave); }
 
+/* En el celular, el pie entero centrado, y los enlaces sin los puntos (al partirse en
+   renglones, un punto quedaba al principio de uno). */
 @media (max-width: 640px) {
-  main { padding-top: 28px; }
-  .pie-fila { flex-direction: column; align-items: flex-start; }
+  main { padding: 28px 18px 8px; }
+  .cabeza-pagina { margin-bottom: 26px; }
+  .hoja { border-radius: 20px; }
+  footer { margin-top: 56px; padding: 24px 18px 40px; }
+  .pie-fila { flex-direction: column; align-items: center; text-align: center; gap: 22px; }
+  footer nav { justify-content: center; gap: 8px 18px; }
+  footer nav a + a::before { display: none; }
+  .pie-app { flex-direction: column; gap: 12px; }
+  footer .insignias { justify-content: center; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
