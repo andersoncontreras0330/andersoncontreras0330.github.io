@@ -113,19 +113,25 @@ code {
 }
 .hoja > :first-child { margin-top: 0; }
 .hoja > :last-child { margin-bottom: 0; }
-.hoja p, .hoja li { line-height: 1.75; text-wrap: pretty; }
-.hoja p { margin: 0 0 14px; }
-.hoja section { margin-top: 30px; padding-top: 4px; }
+/* El texto de la hoja, justificado (pedido del usuario, 2026-11-20), con el interlineado
+   más junto y más aire entre un párrafo y otro, para que se note dónde empieza cada uno.
+   Con guiones donde hagan falta, para que lo justificado no deje huecos en el celular. */
+.hoja p, .hoja li {
+  line-height: 1.5; text-align: justify; text-justify: inter-word; text-wrap: pretty;
+  -webkit-hyphens: auto; hyphens: auto; overflow-wrap: break-word;
+}
+.hoja p { margin: 0 0 20px; }
+.hoja section { margin-top: 32px; padding-top: 6px; }
 .hoja > section:first-child { border-top: 0; margin-top: 0; padding-top: 0; }
-.hoja h2 { margin: 26px 0 12px; }
+.hoja h2 { margin: 28px 0 12px; }
 .hoja > section:first-child h2 { margin-top: 0; }
-.hoja ul, .hoja ol { margin: 0 0 14px; padding-left: 22px; }
-.hoja li { margin: 6px 0; padding-left: 4px; }
+.hoja ul, .hoja ol { margin: 0 0 20px; padding-left: 22px; }
+.hoja li { margin: 0 0 10px; padding-left: 4px; }
 .hoja li::marker { color: var(--acento); }
 .hoja .nota { margin: 0 0 28px; }
 .hoja .version { margin: 34px 0 0; padding-top: 18px; border-top: 1px solid var(--linea); text-align: center; }
 .hoja.corta { max-width: 620px; text-align: center; }
-.hoja.corta p { margin: 0; font-size: 17px; text-wrap: balance; }
+.hoja.corta p { margin: 0; font-size: 17px; text-align: center; text-wrap: balance; }
 
 /* ---- La portada: el logo con su halo, el nombre grande y el lema ----------------- */
 .portada { text-align: center; padding: 22px 0 6px; }
